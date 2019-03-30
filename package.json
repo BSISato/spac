@@ -1,0 +1,29 @@
+{
+  "name": "spac",
+  "version": "1.0.0",
+  "description": "projeto SPAC com as disciplinas dos professores Nava e Caio",
+  "main": "start.js",
+  "scripts": {
+    "dev": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BSISato/spac.git"
+  },
+  "author": "Sato e Jacaré",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BSISato/spac/issues"
+  },
+  "homepage": "https://github.com/BSISato/spac#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "mysql": "^2.16.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-node8": "^1.2.0",
+    "nodemon": "^1.18.10"
+  }
+}
