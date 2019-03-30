@@ -6,7 +6,7 @@ exports.post = async (req,res)=>{
     try{
         await repository.post({
             nome: req.body.nome,
-            cpf: req.body.preco,
+            cpf: req.body.cpf,
         });
         res.status(201).send({
             message:"Cliente cadastrado com sucesso"
