@@ -1,1 +1,4 @@
 POST ta feito...tá certo?  e eu vou lá saber kkkkkkkkkk
+
+Na maquina maquina foi preciso rodar esse comando no mysql, pois nao estava conseguindo autenticar,
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root'
