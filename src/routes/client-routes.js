@@ -3,11 +3,11 @@ var router = express.Router();//interceptação das rotas
 const controller = require('../controllers/client-controller');
 
 
-//POST
+//POSTt
 router.post("/", controller.post);
-/*//rota de get byid
-router.get('/:productId', controller.getById);
-//rota get
+//rota de get byid
+router.get('/:id?', controller.getById);
+/*//rota get
 router.get('/', controller.getAll);
 //rota deletar
 router.delete('/delete/:deleteid',controller.delete); 

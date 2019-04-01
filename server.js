@@ -6,10 +6,12 @@ const mysql = require('mysql');
 
 const connection = mysql.createConnection({
 
-    host: 'localhost',
+    //host: 'localhost',//jacaré
+    host: '127.0.0.1',
     port: 3306,
     user: 'root',
-    password:'root',
+   // password:'root',//jacaré
+   password:'',
     database:'spac',
     insecureAuth : true
 
