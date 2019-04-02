@@ -9,7 +9,7 @@ const connection = mysql.createConnection({
     host: '127.0.0.1',
     port: 3306,
     user: 'root',
-    password:'',
+    password:'ameerj',
     database:'spac'
 
 });
@@ -20,7 +20,6 @@ connection.connect( function(err){
     }
     console.log('conectado como id  ' + connection . threadId );
   });
-
 
 
 //configuração do server para usar o body-parser

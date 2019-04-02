@@ -19,13 +19,17 @@ exports.post = async (req, res) => {
     }
 }
 
-exports.getById = async (req, res) => {
+exports.getById = async (req,res) => {
     try {
-        var data = req.params.id;
-        res.status(200).send(data);
+        const  resultadoreq =  await repository.getById(req.params);
+        console.log(resultadoreq);
+        res.status(200).send({
+            message:"Cliente:",
+            resultadoreq
+        });
     } catch (error) {
         res.status(500).send({
-            message: "Falha ao processar a requisição (ID)",
+            message: "Falha ao processar a requisição (ID)" + error,
             erro: error
         })
     }
