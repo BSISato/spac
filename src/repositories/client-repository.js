@@ -6,7 +6,7 @@ const connection = mysql.createConnection({
     host: '127.0.0.1',
     port: 3306,
     user: 'root',
-    password: 'ameerj',
+    password: '',
     database: 'spac'
 });
 
@@ -20,19 +20,14 @@ exports.post = async (data) => {
 
 //getById
 exports.getById = async (idcliente) => {
-    try {
-        var id = idcliente.id
-        var where = " where idclientes=" + id;
-         connection.query("SELECT * FROM clientes " + where, function (err, result,fields){
-             console.log(result);
-                    return result;
-            });
-    } catch (error) {
-        console.log(error)
-    }finally{
-        connection.end
-    }
+    return new Promise((resolve, reject) => {
+        connection.query("SELECT * FROM clientes", function (err, data, fields) {
 
-    
+            if (err)
+                resolve(err);
+
+            resolve(data);
+        });
+    });
 }
 
