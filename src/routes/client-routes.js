@@ -7,9 +7,9 @@ const controller = require('../controllers/client-controller');
 router.post("/", controller.post);
 //rota de get byid
 router.get('/:ClientId', controller.getById);
-/*//rota get
+//rota get
 router.get('/', controller.getAll);
-//rota deletar
+/*//rota deletar
 router.delete('/delete/:deleteid',controller.delete); 
 //rota altera
 router.put('/altera/:id', controller.put);

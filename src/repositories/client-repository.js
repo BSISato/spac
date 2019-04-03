@@ -21,8 +21,20 @@ exports.post = async (data) => {
 //getById
 exports.getById = async (idcliente) => {
     return new Promise((resolve, reject) => {
-        connection.query("SELECT * FROM clientes", function (err, data, fields) {
+        connection.query("SELECT * FROM clientes WHERE id ="+idcliente,function (err, data, fields) {
 
+            if (err)
+                resolve(err);
+
+            resolve(data);
+        });
+    });
+}
+//get
+exports.get = async () => {
+    return new Promise((resolve, reject) => {
+        connection.query("SELECT * FROM clientes",function (err, data, fields) {
+        console.log(data)
             if (err)
                 resolve(err);
 

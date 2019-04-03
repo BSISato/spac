@@ -24,10 +24,7 @@ exports.getById = async (req,res) => {
     //console.log(idCli);
     try {
         var data =  await repository.getById(idCli);
-        res.status(200).send(data);
-        console.log("controller >"+' '+data);
-        
-            
+        res.status(200).send(data);    
        //     message:"Cliente:",
        //     resultadoreq
        // });
@@ -38,4 +35,15 @@ exports.getById = async (req,res) => {
         })
     }
 } 
+exports.getAll= async (req,res) => {
+    try {
+        var data =  await repository.get();
+        res.status(200).send(data);    
+    } catch (error) {
+        res.status(500).send({
+            message: "Falha ao processar a requisição de clientes" + error,
+            erro: error
+        })
+    }
+}
 
