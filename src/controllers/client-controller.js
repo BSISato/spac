@@ -5,8 +5,19 @@ var repository = require('../repositories/client-repository');
 exports.post = async (req, res) => {
     try {
         await repository.post({
+            convenioMedico: req.body.convenioMedico,
             nome: req.body.nome,
-            cpf: req.body.cpf,
+            dataNascimento: req.body.dataNascimento,
+            email: req.body.email,
+            senha: req.body.senha,
+            telefone: req.body.telefone,
+            celular: req.body.celular,
+            logradouro: req.body.logradouro,
+            numero: req.body.numero,
+            complemento: req.body.complemento,
+            bairro: req.body.bairro,
+            cidade: req.body.cidade,
+            uf: req.body.uf
         });
         res.status(201).send({
             message: "Cliente cadastrado com sucesso"

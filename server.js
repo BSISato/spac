@@ -4,6 +4,7 @@ const app = express();
 const port = 3000; //porta padrão
 const mysql = require('mysql');
 
+
 const connection = mysql.createConnection({
 
     host: '127.0.0.1',
@@ -13,6 +14,7 @@ const connection = mysql.createConnection({
     database:'spac'
 
 });
+
 connection.connect( function(err){ 
     if ( err ) {  
       console.erro('erro de conexão:  ' + err.stack);
