@@ -35,6 +35,7 @@ exports.getById = async (req,res) => {
     //console.log(idCli);
     try {
         var data =  await repository.getById(idCli);
+        
         res.status(200).send(data);    
        //     message:"Cliente:",
        //     resultadoreq

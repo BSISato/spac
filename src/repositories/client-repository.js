@@ -20,17 +20,16 @@ exports.post = async (data) => {
         if (error) throw error;
     };
     
-    
-    connection.query("SELECT MAX(idEndereco) FROM endereco", function (err, idend) {
+    connection.query("SELECT last_insert_id() as id FROM endereco", function (err, idend) {
         if (err) throw error;
-        console.log(idend);
-    });
-
+       // var id_end = idend[0].id;
+       // console.log(id_end);
+    //});
     connection.query("INSERT INTO pessoa (nome,datanascimento,email,senha,telefone,celular,endereco_idendereco) VALUES ('" +
     data.nome + "','" + data.datanascimento + "','" + data.email + "','" + data.senha + "','" + 
-    data.telefone + "','" + data.celular + "','" + "1" + "')"), function (error,results,fields) {
+    data.telefone + "','" + data.celular + "','" + idend[0].id + "')"), function (error,results,fields) {
         if (error) throw error;
-    };
+    }});
   
 }
 
