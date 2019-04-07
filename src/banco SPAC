@@ -122,7 +122,6 @@ CREATE TABLE IF NOT EXISTS `spac`.`medico` (
   `idMedico` INT(11) NOT NULL AUTO_INCREMENT,
   `Crm` INT(11) NOT NULL,
   `ValorConsulta` DOUBLE NOT NULL,
-  `Medicocol` VARCHAR(45) NULL DEFAULT NULL,
   `pessoa_idPessoa` INT(11) NOT NULL,
   PRIMARY KEY (`idMedico`))
 ENGINE = InnoDB
