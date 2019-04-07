@@ -1,16 +1,25 @@
+/*CLIENTE*/
 select  * from  cliente c, pessoa p, endereco e
 where  c.pessoa_idpessoa = p.idpessoa and p.endereco_idendereco = e.idendereco ;
 
+/*MEDICO*/
 select * from medico m, pessoa p, endereco e where
 m.pessoa_idPessoa = p.idPessoa and p.endereco_idEndereco = e.idEndereco;
 
+/*SECRETARIA*/
 select * from secretaria s, pessoa p, endereco e where
 s.pessoa_idPessoa = p.idPessoa and p.endereco_idEndereco = e.idEndereco;
+
+/*CONSULTORIO*/
+select * from  consultorio c, endereco e where
+c.endereco_idEndereco = e.idEndereco;
 
 select * from cliente;
 select * from pessoa;
 select * from endereco;
+select * from consultorio;
 
 desc cliente;
 desc pessoa;
 desc endereco;
+desc consultorio;

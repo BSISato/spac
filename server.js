@@ -33,6 +33,7 @@ var indexRoute = require("./src/routes/index-routes");
 var clientRoute = require('./src/routes/client-routes');
 var medicRoute = require('./src/routes/medic-routes');
 var secretaryRoute = require('./src/routes/secretary-routes');
+var clinicRoute = require('./src/routes/clinic-routes');
 
 //vincular a aplicação (app) com o motor de rotas
 app.use('/api',indexRoute);
@@ -40,6 +41,8 @@ app.use('/api',indexRoute);
 app.use('/client',clientRoute);
 app.use('/medic',medicRoute);
 app.use('/secretary',secretaryRoute);
+app.use('/clinic',clinicRoute);
+
 
 app.listen(port, () => {
     console.log('Server up and running!!!');
