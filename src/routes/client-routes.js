@@ -9,9 +9,9 @@ router.post("/", controller.post);
 router.get('/:ClientId', controller.getById);
 //rota get
 router.get('/', controller.getAll);
-/*//rota deletar
-router.delete('/delete/:deleteid',controller.delete); 
+//rota deletar
+router.delete('/:ClientId',controller.delete); 
 //rota altera
-router.put('/altera/:id', controller.put);
-*/
+router.put('/:ClientId', controller.put);
+
 module.exports = router;

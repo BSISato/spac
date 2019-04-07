@@ -1,0 +1,168 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema spac
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema spac
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `spac` DEFAULT CHARACTER SET utf8 ;
+USE `spac` ;
+
+-- -----------------------------------------------------
+-- Table `spac`.`endereco`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `spac`.`endereco` (
+  `idEndereco` INT(11) NOT NULL AUTO_INCREMENT,
+  `Logradouro` VARCHAR(40) NULL DEFAULT NULL,
+  `Numero` INT(11) NULL DEFAULT NULL,
+  `Complemento` VARCHAR(30) NULL DEFAULT NULL,
+  `Bairro` VARCHAR(45) NULL DEFAULT NULL,
+  `Cidade` VARCHAR(10) NULL DEFAULT NULL,
+  `UF` CHAR(2) NULL DEFAULT NULL,
+  PRIMARY KEY (`idEndereco`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `spac`.`pessoa`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `spac`.`pessoa` (
+  `idPessoa` INT(11) NOT NULL auto_increment,
+  `Nome` VARCHAR(40) NOT NULL,
+  `Datanascimento` DATE NOT NULL,
+  `Email` VARCHAR(30) NULL DEFAULT NULL,
+  `Senha` VARCHAR(15) NULL DEFAULT NULL,
+  `Telefone` VARCHAR(11) NULL DEFAULT NULL,
+  `Celular` VARCHAR(12) NOT NULL,
+  `endereco_idEndereco` INT(11) NOT NULL,
+  PRIMARY KEY (`idPessoa`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `spac`.`cliente`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `spac`.`cliente` (
+  `idCliente` INT(11) NOT NULL AUTO_INCREMENT,
+  `ConvenioMedico` VARCHAR(20) NULL DEFAULT NULL,
+  `pessoa_idPessoa` INT(11) NOT NULL,
+  PRIMARY KEY (`idCliente`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `spac`.`agendamento`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `spac`.`agendamento` (
+  `idAgendamento` INT(11) NOT NULL auto_increment,
+  `Data` DATETIME NULL DEFAULT NULL,
+  `Situacao` VARCHAR(10) NULL DEFAULT NULL,
+  `Agendamentocol` VARCHAR(45) NULL DEFAULT NULL,
+  `cliente_idCliente` INT(11) NOT NULL,
+  PRIMARY KEY (`idAgendamento`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `spac`.`consultorio`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `spac`.`consultorio` (
+  `idConsultorio` INT(11) NOT NULL auto_increment,
+  `Nome` VARCHAR(45) NULL DEFAULT NULL,
+  `Cnpj` VARCHAR(45) NULL DEFAULT NULL,
+  `Telefone` VARCHAR(45) NULL DEFAULT NULL,
+  `Descricao` VARCHAR(45) NULL DEFAULT NULL,
+  `endereco_idEndereco` INT(11) NOT NULL,
+  PRIMARY KEY (`idConsultorio`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `spac`.`diatrabalho`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `spac`.`diatrabalho` (
+  `idDiaTrabalho` INT(11) NOT NULL,
+  `Dia` DATETIME NOT NULL,
+  `Horarioinicio` DATETIME NOT NULL,
+  `Horariofinal` DATETIME NOT NULL,
+  PRIMARY KEY (`idDiaTrabalho`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `spac`.`especialidade`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `spac`.`especialidade` (
+  `idEspecialidade` INT(11) NOT NULL AUTO_INCREMENT,
+  `Especialidade` VARCHAR(30) NULL DEFAULT NULL,
+  PRIMARY KEY (`idEspecialidade`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `spac`.`medico`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `spac`.`medico` (
+  `idMedico` INT(11) NOT NULL AUTO_INCREMENT,
+  `Crm` INT(11) NOT NULL,
+  `ValorConsulta` DOUBLE NOT NULL,
+  `Medicocol` VARCHAR(45) NULL DEFAULT NULL,
+  `pessoa_idPessoa` INT(11) NOT NULL,
+  PRIMARY KEY (`idMedico`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `spac`.`medicoespecialidade`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `spac`.`medicoespecialidade` (
+  `medico_idMedico` INT(11) NOT NULL,
+  `especialidade_idEspecialidade` INT(11) NOT NULL,
+  PRIMARY KEY (`medico_idMedico`, `especialidade_idEspecialidade`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `spac`.`secretaria`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `spac`.`secretaria` (
+  `idUsuarios` INT(11) NOT NULL AUTO_INCREMENT,
+  `pessoa_idPessoa` INT(11) NOT NULL,
+  PRIMARY KEY (`idUsuarios`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `spac`.`tipoconsulta`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `spac`.`tipoconsulta` (
+  `idTipoconsulta` INT(11) NOT NULL,
+  `Descricao` VARCHAR(45) NULL DEFAULT NULL,
+  `Tempo` TIME NULL DEFAULT NULL,
+  PRIMARY KEY (`idTipoconsulta`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
