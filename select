@@ -1,0 +1,16 @@
+select  * from  cliente c, pessoa p, endereco e
+where  c.pessoa_idpessoa = p.idpessoa and p.endereco_idendereco = e.idendereco ;
+
+select * from medico m, pessoa p, endereco e where
+m.pessoa_idPessoa = p.idPessoa and p.endereco_idEndereco = e.idEndereco;
+
+select * from secretaria s, pessoa p, endereco e where
+s.pessoa_idPessoa = p.idPessoa and p.endereco_idEndereco = e.idEndereco;
+
+select * from cliente;
+select * from pessoa;
+select * from endereco;
+
+desc cliente;
+desc pessoa;
+desc endereco;

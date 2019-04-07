@@ -32,12 +32,14 @@ app.use(bodyParser.json());
 var indexRoute = require("./src/routes/index-routes");
 var clientRoute = require('./src/routes/client-routes');
 var medicRoute = require('./src/routes/medic-routes');
+var secretaryRoute = require('./src/routes/secretary-routes');
 
 //vincular a aplicação (app) com o motor de rotas
 app.use('/api',indexRoute);
 //Rotas para produtos
 app.use('/client',clientRoute);
 app.use('/medic',medicRoute);
+app.use('/secretary',secretaryRoute);
 
 app.listen(port, () => {
     console.log('Server up and running!!!');
