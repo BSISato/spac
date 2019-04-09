@@ -30,7 +30,7 @@ exports.post = async (data) => {
         connection.query("SELECT last_insert_id() as idp FROM pessoa", function (err, idpes) {
             if (err) throw error;
             connection.query("INSERT INTO medico(crm, valorConsulta,pessoa_idPessoa) VALUES('" +
-                data.crm + "','" +data.valorConsulta+"','"+ idpes[0].idp + "')"), function (error, results, fields) {
+                data.crm + "','" + data.valorConsulta + "','" + idpes[0].idp + "')"), function (error, results, fields) {
                     if (error) throw error;
                 }
         });
@@ -64,18 +64,33 @@ exports.get = async () => {
 }
 //DELETE
 exports.delete = async (id) => {
-    connection.query("create temporary table tempIdEnd SELECT e.idendereco FROM medico m, pessoa p, endereco e where "+
-    "e.idendereco = p.endereco_idendereco and p.idpessoa = m.pessoa_idpessoa and m.idmedico = '"+id+"'");
-    connection.query("create temporary table tempIdPes SELECT p.idpessoa FROM medico m, pessoa p, endereco e where "+
-    "e.idendereco = p.endereco_idendereco and p.idpessoa = m.pessoa_idpessoa and m.idmedico = '"+id+"'");
+    id = "sd";
+    console.log(id);
+    try {
+        connection.beginTransaction(function(err) {
+            if (err) { throw err ;}
+        connection.query("create temporary table tempIdEnd SELECT e.idendereco FROM medico m, pessoa p, endereco e where " +
+            "e.idendereco = p.endereco_idendereco and p.idpessoa = m.pessoa_idpessoa and m.idmedico = '" + id + "'");
+        connection.query("create temporary table tempIdPes SELECT p.idpessoa FROM medico m, pessoa p, endereco e where " +
+            "e.idendereco = p.endereco_idendereco and p.idpessoa = m.pessoa_idpessoa and m.idmedico = '" + id + "'");
 
-    connection.query("DELETE FROM endereco where idendereco = (select idendereco from tempIdEnd)");
-    connection.query("DROP TABLE tempIdEnd");
+        connection.query("DELETE FROM endereco where idendereco = (select idendereco from tempIdEnd)");
+        connection.query("DROP TABLE tempIdEnd");
 
-    connection.query("DELETE FROM pessoa where idpessoa = (select idpessoa from tempIdPes)");
-    connection.query("DROP TABLE tempIdPes");
+        connection.query("DELETE FROM pessoa where idpessoa = (select idpessoa from tempIdPes)");
+        connection.query("DROP TABLE tempIdPes");
 
-    connection.query("DELETE FROM medico WHERE idmedico =" + id);
+        connection.query("DELETE FROM medico WHERE idmedico =" + id);
+        console.log("entrou no try");
+        })
+        connection.commit();
+
+    } catch (error) {
+        connection.rollback(function() {
+            throw err;
+          });
+
+    }
 
     /*
     connection.query("DELETE FROM endereco WHERE idendereco = '"+
@@ -97,11 +112,11 @@ exports.delete = async (id) => {
 }
 //PUT
 exports.put = async (dados) => {
-    
-    connection.query("create temporary table tempIdEnd SELECT e.idendereco FROM medico m, pessoa p, endereco e where "+
-    "e.idendereco = p.endereco_idendereco and p.idpessoa = m.pessoa_idpessoa and m.idmedico = '"+dados.idMed+"'");
-    connection.query("create temporary table tempIdPes SELECT p.idpessoa FROM medico m, pessoa p, endereco e where "+
-    "e.idendereco = p.endereco_idendereco and p.idpessoa = m.pessoa_idpessoa and m.idmedico = '"+dados.idMed+"'");
+
+    connection.query("create temporary table tempIdEnd SELECT e.idendereco FROM medico m, pessoa p, endereco e where " +
+        "e.idendereco = p.endereco_idendereco and p.idpessoa = m.pessoa_idpessoa and m.idmedico = '" + dados.idMed + "'");
+    connection.query("create temporary table tempIdPes SELECT p.idpessoa FROM medico m, pessoa p, endereco e where " +
+        "e.idendereco = p.endereco_idendereco and p.idpessoa = m.pessoa_idpessoa and m.idmedico = '" + dados.idMed + "'");
 
     connection.query("UPDATE endereco set logradouro = '" + dados.logradouro + "',numero = '" + dados.numero + "'," +
         "complemento = '" + dados.complemento + "',bairro = '" + dados.bairro + "',cidade = '" + dados.cidade + "'," +
@@ -109,12 +124,12 @@ exports.put = async (dados) => {
     connection.query("DROP TABLE tempIdEnd");
 
     connection.query("UPDATE pessoa set nome = '" + dados.nome + "',dataNascimento = '" + dados.dataNascimento + "'," +
-    "email = '" + dados.email + "',senha = '" + dados.senha + "',telefone = '" + dados.telefone + "'," +
-    "celular = '" + dados.celular + "'where idpessoa = (select idpessoa from tempIdPes)");
-    connection.query("DROP TABLE tempIdPes");  
-    
-    connection.query("UPDATE medico set crm = '"+dados.crm+"', valorConsulta = '"+dados.valorConsulta+"'"+
-    "where idmedico = '"+dados.idMed+"'");
+        "email = '" + dados.email + "',senha = '" + dados.senha + "',telefone = '" + dados.telefone + "'," +
+        "celular = '" + dados.celular + "'where idpessoa = (select idpessoa from tempIdPes)");
+    connection.query("DROP TABLE tempIdPes");
+
+    connection.query("UPDATE medico set crm = '" + dados.crm + "', valorConsulta = '" + dados.valorConsulta + "'" +
+        "where idmedico = '" + dados.idMed + "'");
 
     /*
     connection.query("UPDATE endereco set logradouro = '" + dados.logradouro + "',numero = '" + dados.numero + "'," +
@@ -139,5 +154,5 @@ exports.put = async (dados) => {
             console.log(err);
         });
         */
-    }
+}
 
