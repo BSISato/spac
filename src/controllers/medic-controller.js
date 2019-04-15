@@ -83,6 +83,7 @@ exports.put = async (req,res) =>{
         await repository.put({
             crm: req.body.crm,
             valorConsulta: req.body.valorConsulta,
+            especialidade: req.body.especialidade,
             nome: req.body.nome,
             dataNascimento: req.body.dataNascimento,
             email: req.body.email,

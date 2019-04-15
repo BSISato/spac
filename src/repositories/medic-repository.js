@@ -56,8 +56,7 @@ exports.get = async () => {
 }
 //DELETE
 exports.delete = async (id) => {
-    id = "sd";
-    console.log(id);
+    //console.log(id);
     try {
         connection.beginTransaction(function(err) {
             if (err) { throw err ;}
@@ -82,13 +81,7 @@ exports.delete = async (id) => {
             throw err;
           });
 
-    connection.query("DELETE FROM endereco where idendereco = (select idendereco from tempIdEnd)");
-    connection.query("DROP TABLE tempIdEnd");
-
-    connection.query("DELETE FROM pessoa where idpessoa = (select idpessoa from tempIdPes)");
-    connection.query("DROP TABLE tempIdPes");
-
-    connection.query("DELETE FROM medico WHERE idmedico =" + id);
+        }
 }
 //PUT
 exports.put = async (dados) => {
@@ -108,8 +101,6 @@ exports.put = async (dados) => {
     "celular = '" + dados.celular + "'where idpessoa = (select idpessoa from tempIdPes)");
     connection.query("DROP TABLE tempIdPes");  
     
-    connection.query("UPDATE medico set crm = '"+dados.crm+"', valorConsulta = '"+dados.valorConsulta+"'"+
+    connection.query("UPDATE medico set crm = '"+dados.crm+"', valorConsulta = '"+dados.valorConsulta+"',"+
     "especialidade = '"+dados.especialidade+"'"+ "where idmedico = '"+dados.idMed+"'");
-    
     }
-
