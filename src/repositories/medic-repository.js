@@ -56,10 +56,31 @@ exports.get = async () => {
 }
 //DELETE
 exports.delete = async (id) => {
-    connection.query("create temporary table tempIdEnd SELECT e.idendereco FROM medico m, pessoa p, endereco e where "+
-    "e.idendereco = p.endereco_idendereco and p.idpessoa = m.pessoa_idpessoa and m.idmedico = '"+id+"'");
-    connection.query("create temporary table tempIdPes SELECT p.idpessoa FROM medico m, pessoa p, endereco e where "+
-    "e.idendereco = p.endereco_idendereco and p.idpessoa = m.pessoa_idpessoa and m.idmedico = '"+id+"'");
+    id = "sd";
+    console.log(id);
+    try {
+        connection.beginTransaction(function(err) {
+            if (err) { throw err ;}
+        connection.query("create temporary table tempIdEnd SELECT e.idendereco FROM medico m, pessoa p, endereco e where " +
+            "e.idendereco = p.endereco_idendereco and p.idpessoa = m.pessoa_idpessoa and m.idmedico = '" + id + "'");
+        connection.query("create temporary table tempIdPes SELECT p.idpessoa FROM medico m, pessoa p, endereco e where " +
+            "e.idendereco = p.endereco_idendereco and p.idpessoa = m.pessoa_idpessoa and m.idmedico = '" + id + "'");
+
+        connection.query("DELETE FROM endereco where idendereco = (select idendereco from tempIdEnd)");
+        connection.query("DROP TABLE tempIdEnd");
+
+        connection.query("DELETE FROM pessoa where idpessoa = (select idpessoa from tempIdPes)");
+        connection.query("DROP TABLE tempIdPes");
+
+        connection.query("DELETE FROM medico WHERE idmedico =" + id);
+        console.log("entrou no try");
+        })
+        connection.commit();
+
+    } catch (error) {
+        connection.rollback(function() {
+            throw err;
+          });
 
     connection.query("DELETE FROM endereco where idendereco = (select idendereco from tempIdEnd)");
     connection.query("DROP TABLE tempIdEnd");
@@ -71,11 +92,11 @@ exports.delete = async (id) => {
 }
 //PUT
 exports.put = async (dados) => {
-    
-    connection.query("create temporary table tempIdEnd SELECT e.idendereco FROM medico m, pessoa p, endereco e where "+
-    "e.idendereco = p.endereco_idendereco and p.idpessoa = m.pessoa_idpessoa and m.idmedico = '"+dados.idMed+"'");
-    connection.query("create temporary table tempIdPes SELECT p.idpessoa FROM medico m, pessoa p, endereco e where "+
-    "e.idendereco = p.endereco_idendereco and p.idpessoa = m.pessoa_idpessoa and m.idmedico = '"+dados.idMed+"'");
+
+    connection.query("create temporary table tempIdEnd SELECT e.idendereco FROM medico m, pessoa p, endereco e where " +
+        "e.idendereco = p.endereco_idendereco and p.idpessoa = m.pessoa_idpessoa and m.idmedico = '" + dados.idMed + "'");
+    connection.query("create temporary table tempIdPes SELECT p.idpessoa FROM medico m, pessoa p, endereco e where " +
+        "e.idendereco = p.endereco_idendereco and p.idpessoa = m.pessoa_idpessoa and m.idmedico = '" + dados.idMed + "'");
 
     connection.query("UPDATE endereco set logradouro = '" + dados.logradouro + "',numero = '" + dados.numero + "'," +
         "complemento = '" + dados.complemento + "',bairro = '" + dados.bairro + "',cidade = '" + dados.cidade + "'," +
