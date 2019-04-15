@@ -1,24 +1,20 @@
-var Medico = require("../app/models/clinic");
+var Consulta = require("../app/models/consulta");
 var mysql = require('mysql');
-var repository = require('../repositories/clinic-repository');
+var repository = require('../repositories/consulta-repository');
 
 exports.post = async (req, res) => {
     try {
         await repository.post({
-            
-            nome: req.body.nome,
-            cnpj: req.body.cnpj,
-            telefone: req.body.telefone,
+           
+            idcliente: req.body.idCliente,
+            data: req.body.data,
+            situacao: req.body.situacao,
             descricao: req.body.descricao,
-            logradouro: req.body.logradouro,
-            numero: req.body.numero,
-            complemento: req.body.complemento,
-            bairro: req.body.bairro,
-            cidade: req.body.cidade,
-            uf: req.body.uf
+            prontuario: req.body.prontuario
+
         });
         res.status(200).send({
-            message: "Clinica cadastrada com sucesso"
+            message: "Consulta cadastrada com sucesso"
         });
     } catch (e) {
         console.log(e);
@@ -29,14 +25,14 @@ exports.post = async (req, res) => {
 }
 
 exports.getById = async (req, res) => {
-    const idClin = req.params.ClinicaId;
+    const idCons = req.params.ConsultaId;
     try {
-        var data = await repository.getById(idClin);
+        var data = await repository.getById(idCons);
 
         res.status(200).send({
-        message:"Clinica:",
-        data
-    });
+            message:"Consulta:",
+            data
+        });
     } catch (error) {
         res.status(500).send({
             message: "Falha ao processar a requisição (ID)" + error,
@@ -48,22 +44,22 @@ exports.getAll = async (req, res) => {
     try {
         var data = await repository.get();
         res.status(200).send({
-            message:"Clinicas",
+            message:"Consultas:",
             data
         });
     } catch (error) {
         res.status(500).send({
-            message: "Falha ao processar a requisição de clinica" + error,
+            message: "Falha ao processar a requisição de consulta" + error,
             erro: error
         })
     }
 }
 exports.delete = async (req, res) =>{
-    const idClin = req.params.ClinicaId;
+    const idCons = req.params.ConsultaId;
     try {
-        await repository.delete(idClin);
+        await repository.delete(idCons);
         res.status(200).send({
-            message:"Clinica removida com sucesso"
+            message:"Consulta removida com sucesso"
         });
     
     } catch (error) {
@@ -74,23 +70,19 @@ exports.delete = async (req, res) =>{
     }
 }
 exports.put = async (req,res) =>{
-    const idClin = req.params.ClinicaId;
+    const idCons = req.params.ConsultaId;
     try {
         await repository.put({
-            nome: req.body.nome,
-            cnpj: req.body.cnpj,
-            telefone: req.body.telefone,
+            
+            idcliente: req.body.idCliente,
+            data: req.body.data,
+            situacao: req.body.situacao,
             descricao: req.body.descricao,
-            logradouro: req.body.logradouro,
-            numero: req.body.numero,
-            complemento: req.body.complemento,
-            bairro: req.body.bairro,
-            cidade: req.body.cidade,
-            uf: req.body.uf,
-            idClin
+            prontuario: req.body.prontuario,
+            idCons
         });
         res.status(200).send({
-            message: "Dados da Clinica alterado com sucesso"
+            message: "Consulta alterada com sucesso"
         });
     }catch (error) {
         res.status(500).send({

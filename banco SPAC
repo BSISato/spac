@@ -63,15 +63,16 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `spac`.`agendamento`
+-- Table `spac`.`consulta`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `spac`.`agendamento` (
-  `idAgendamento` INT(11) NOT NULL auto_increment,
+CREATE TABLE IF NOT EXISTS `spac`.`consulta` (
+  `idConsulta` INT(11) NOT NULL auto_increment,
   `Data` DATETIME NULL DEFAULT NULL,
   `Situacao` VARCHAR(10) NULL DEFAULT NULL,
-  `Agendamentocol` VARCHAR(45) NULL DEFAULT NULL,
-  `cliente_idCliente` INT(11) NOT NULL,
-  PRIMARY KEY (`idAgendamento`))
+  `Descricao` VARCHAR(45) NULL DEFAULT NULL,
+  `Prontuario` TEXT NULL DEFAULT NULL,
+  `idCliente` INT(11) NOT NULL,
+  PRIMARY KEY (`idConsulta`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -122,21 +123,15 @@ CREATE TABLE IF NOT EXISTS `spac`.`medico` (
   `idMedico` INT(11) NOT NULL AUTO_INCREMENT,
   `Crm` INT(11) NOT NULL,
   `ValorConsulta` DOUBLE NOT NULL,
+  `Especialidade` VARCHAR(30) NULL DEFAULT NULL,
   `pessoa_idPessoa` INT(11) NOT NULL,
+  
   PRIMARY KEY (`idMedico`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 
--- -----------------------------------------------------
--- Table `spac`.`medicoespecialidade`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `spac`.`medicoespecialidade` (
-  `medico_idMedico` INT(11) NOT NULL,
-  `especialidade_idEspecialidade` INT(11) NOT NULL,
-  PRIMARY KEY (`medico_idMedico`, `especialidade_idEspecialidade`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+
 
 
 -- -----------------------------------------------------
@@ -146,18 +141,6 @@ CREATE TABLE IF NOT EXISTS `spac`.`secretaria` (
   `idUsuarios` INT(11) NOT NULL AUTO_INCREMENT,
   `pessoa_idPessoa` INT(11) NOT NULL,
   PRIMARY KEY (`idUsuarios`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `spac`.`tipoconsulta`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `spac`.`tipoconsulta` (
-  `idTipoconsulta` INT(11) NOT NULL,
-  `Descricao` VARCHAR(45) NULL DEFAULT NULL,
-  `Tempo` TIME NULL DEFAULT NULL,
-  PRIMARY KEY (`idTipoconsulta`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 

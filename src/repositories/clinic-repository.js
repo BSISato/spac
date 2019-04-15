@@ -1,15 +1,7 @@
 //quem irá procurar aqui é o controller
 var Medico = require('../app/models/clinic');
+var connection = require('../connection/connection');
 var mysql = require('mysql');
-
-
-const connection = mysql.createConnection({
-    host: '127.0.0.1',
-    port: 3306,
-    user: 'root',
-    password: '',
-    database: 'spac'
-});
 
 //POST
 exports.post = async (data) => {

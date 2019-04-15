@@ -35,10 +35,10 @@ exports.getById = async (req, res) => {
     try {
         var data = await repository.getById(idSec);
 
-        res.status(200).send(data);
-        //     message:"Cliente:",
-        //     resultadoreq
-        // });
+        res.status(200).send({
+            message:"Secretaria:",
+            data
+        });
     } catch (error) {
         res.status(500).send({
             message: "Falha ao processar a requisição (ID)" + error,
@@ -49,7 +49,10 @@ exports.getById = async (req, res) => {
 exports.getAll = async (req, res) => {
     try {
         var data = await repository.get();
-        res.status(200).send(data);
+        res.status(200).send({
+            message:"Secretarias:",
+            data
+        });
     } catch (error) {
         res.status(500).send({
             message: "Falha ao processar a requisição de secretaria" + error,
@@ -91,7 +94,7 @@ exports.put = async (req,res) =>{
             idSec
         });
         res.status(200).send({
-            message: "Medico alterado com sucesso"
+            message: "Secretaria alterada com sucesso"
         });
     }catch (error) {
         res.status(500).send({

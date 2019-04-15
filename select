@@ -14,12 +14,21 @@ s.pessoa_idPessoa = p.idPessoa and p.endereco_idEndereco = e.idEndereco;
 select * from  consultorio c, endereco e where
 c.endereco_idEndereco = e.idEndereco;
 
+/*CONSULTAS*/
+select * from consulta;
+
 select * from cliente;
+select * from medico;
+select * from secretaria;
 select * from pessoa;
 select * from endereco;
 select * from consultorio;
+select * from consulta;
 
 desc cliente;
+desc secretaria;
+desc medico;
 desc pessoa;
 desc endereco;
 desc consultorio;
+desc consulta;

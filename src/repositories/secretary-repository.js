@@ -1,15 +1,8 @@
 //quem irá procurar aqui é o controller
 var Secretaria = require('../app/models/secretary');
+var connection = require('../connection/connection');
 var mysql = require('mysql');
 
-
-const connection = mysql.createConnection({
-    host: '127.0.0.1',
-    port: 3306,
-    user: 'root',
-    password: '',
-    database: 'spac'
-});
 
 //POST
 exports.post = async (data) => {
@@ -77,23 +70,6 @@ exports.delete = async (id) => {
 
     connection.query("DELETE FROM secretaria WHERE idsecretaria =" + id);
 
-    /*
-    connection.query("DELETE FROM endereco WHERE idendereco = '"+
-    "(SELECT e.idendereco FROM cliente c, pessoa p, endereco e where " +
-    "e.idendereco = p.endereco_idendereco and p.idpessoa = c.pessoa_idpessoa and c.idcliente = " + id + "')", function (err, data, fields) {
-        if (err)
-            console.log(err);
-    });
-    connection.query("DELETE FROM pessoa WHERE idpessoa = '"+
-    "(SELECT p.idpessoa FROM cliente c, pessoa p, endereco e where " +
-    "e.idendereco = p.endereco_idendereco and p.idpessoa = c.pessoa_idpessoa and c.idcliente = " + id + "')", function (err, data, fields) {
-        if (err)
-            console.log(err);
-    });
-    connection.query('DELETE FROM cliente WHERE idcliente =' + id, function (err) {
-        if (err) console.log(err);
-    });
-    */
 }
 //PUT
 exports.put = async (dados) => {
@@ -116,28 +92,6 @@ exports.put = async (dados) => {
     connection.query("UPDATE medico set crm = '"+dados.crm+"', valorConsulta = '"+dados.valorConsulta+"'"+
     "where idmedico = '"+dados.idSec+"'");
 
-    /*
-    connection.query("UPDATE endereco set logradouro = '" + dados.logradouro + "',numero = '" + dados.numero + "'," +
-        "complemento = '" + dados.complemento + "',bairro = '" + dados.bairro + "',cidade = '" + dados.cidade + "'," +
-        "uf = '" + dados.uf + "'where idendereco = '" +
-        "(SELECT e.idendereco FROM cliente c, pessoa p, endereco e where " +
-        "e.idendereco = p.endereco_idendereco and p.idpessoa = c.pessoa_idpessoa and c.idcliente = " + dados.idCli + "')", function (err, data, fields) {
-            if (err)
-                console.log(err);
-        });
 
-    connection.query("UPDATE pessoa set nome = '" + dados.nome + "',dataNascimento = '" + dados.dataNascimento + "'," +
-        "email = '" + dados.email + "',senha = '" + dados.senha + "',telefone = '" + dados.telefone + "'," +
-        "celular = '" + dados.celular + "'where idpessoa = '" +
-        "(SELECT p.idpessoa FROM cliente c, pessoa p, endereco e where " +
-        "e.idendereco = p.endereco_idendereco and p.idpessoa = c.pessoa_idpessoa and c.idcliente = " + dados.idCli + "')", function (err, data, fields) {
-            if (err)
-                console.log(err);
-        });
-    connection.query("UPDATE cliente set convenioMedico = '"+dados.convenioMedico+"'where idcliente = '"+dados.idCli+"'", function (err, data, fields) {
-        if (err)
-            console.log(err);
-        });
-        */
     }
 

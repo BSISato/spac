@@ -7,6 +7,7 @@ exports.post = async (req, res) => {
         await repository.post({
             crm: req.body.crm,
             valorConsulta: req.body.valorConsulta,
+            especialidade: req.body.especialidade,
             nome: req.body.nome,
             dataNascimento: req.body.dataNascimento,
             email: req.body.email,
@@ -36,10 +37,10 @@ exports.getById = async (req, res) => {
     try {
         var data = await repository.getById(idMed);
 
-        res.status(200).send(data);
-        //     message:"Cliente:",
-        //     resultadoreq
-        // });
+        res.status(200).send({
+             message:"Medico:",
+             data
+         });
     } catch (error) {
         res.status(500).send({
             message: "Falha ao processar a requisição (ID)" + error,
@@ -50,7 +51,10 @@ exports.getById = async (req, res) => {
 exports.getAll = async (req, res) => {
     try {
         var data = await repository.get();
-        res.status(200).send(data);
+        res.status(200).send({
+            message:"Medicos:",
+            data
+        });
     } catch (error) {
         res.status(500).send({
             message: "Falha ao processar a requisição de medicos" + error,
